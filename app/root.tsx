@@ -1,3 +1,7 @@
+/**
+ * root.tsx cannot have a loader to user, because the edge functions don't suport the modules required for
+ * @see https://github.com/vercel/vercel/discussions/9537
+ */
 import {
   Links,
   Meta,
@@ -7,12 +11,12 @@ import {
 } from '@remix-run/react';
 import { Analytics } from '@vercel/analytics/react';
 
-import type { LinksFunction } from '@remix-run/node';
-import stylesheet from '@/tailwind.css?url';
+// import type { LinksFunction } from '@remix-run/node';
+// import stylesheet from '@/tailwind.css?url';
 
-export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: stylesheet },
-];
+// export const links: LinksFunction = () => [
+//   { rel: 'stylesheet', href: stylesheet },
+// ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
