@@ -3,16 +3,12 @@
  */
 import { Authenticator } from 'remix-auth';
 import { sessionStorage } from '@/services/session.server';
+import { IUsers } from '@/models/users';
+import { findOrCreateUser } from '@/services/users.server';
 
 import { GoogleStrategy } from 'remix-auth-google';
 
-export type User = {
-  displayName: string;
-  photo: string;
-  email: string;
-};
-
-export let authenticator = new Authenticator<User>(sessionStorage);
+export let authenticator = new Authenticator<IUsers>(sessionStorage);
 
 if (!process.env.AUTH_GOOGLE_ID)
   throw new Error('Invalid/Missing environment variable: "AUTH_GOOGLE_ID"');
@@ -35,9 +31,7 @@ const googleStrategy = new GoogleStrategy(
       emails: [{ value: email }],
     } = profile;
 
-    // Get the user data from your DB or API using the tokens and profile
-    // return User.findOrCreate({ email: profile.emails[0].value });
-    return { displayName, photo, email };
+    return await findOrCreateUser({ email, name: displayName, image: photo });
   }
 );
 

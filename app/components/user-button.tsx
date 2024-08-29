@@ -17,7 +17,7 @@ export default function UserButton() {
 
   if (user == null) return <SignIn />;
 
-  const initials = getInitials(user.displayName);
+  const initials = getInitials(user.name);
 
   return (
     <div className="flex gap-2 items-center">
@@ -25,7 +25,7 @@ export default function UserButton() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative w-8 h-8 rounded-full">
             <Avatar className="w-8 h-8">
-              <AvatarImage src={user.photo} alt={user.displayName ?? ''} />
+              <AvatarImage src={user.image} alt={user.name ?? ''} />
               <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
           </Button>
@@ -33,9 +33,7 @@ export default function UserButton() {
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">
-                {user.displayName}
-              </p>
+              <p className="text-sm font-medium leading-none">{user.name}</p>
               <p className="text-xs leading-none text-muted-foreground">
                 {user.email}
               </p>
