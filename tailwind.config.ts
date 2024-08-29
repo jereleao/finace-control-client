@@ -1,73 +1,83 @@
 import type { Config } from 'tailwindcss';
 
+function lightDarkVar(baseName: string) {
+  return `var(--theme-light, hsl(var(--${baseName}))) var(--theme-dark, hsl(var(--${baseName}-dark)))`;
+}
+
 export default {
-  darkMode: ["class"],
+  darkMode: ['selector', '[data-theme="dark"]'],
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
-  prefix: "",
+  prefix: '',
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '2rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: lightDarkVar('border'),
+        input: lightDarkVar('input'),
+        ring: lightDarkVar('ring'),
+        background: lightDarkVar('background'),
+        foreground: lightDarkVar('foreground'),
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: lightDarkVar('primary'),
+          foreground: lightDarkVar('primary-foreground'),
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: lightDarkVar('secondary'),
+          foreground: lightDarkVar('secondary-foreground'),
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: lightDarkVar('destructive'),
+          foreground: lightDarkVar('destructive-foreground'),
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: lightDarkVar('muted'),
+          foreground: lightDarkVar('muted-foreground'),
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: lightDarkVar('accent'),
+          foreground: lightDarkVar('accent-foreground'),
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: lightDarkVar('popover'),
+          foreground: lightDarkVar('popover-foreground'),
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: lightDarkVar('card'),
+          foreground: lightDarkVar('card-foreground'),
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        progress: {
+          '0%': { transform: ' translateX(0) scaleX(0)' },
+          '40%': { transform: 'translateX(0) scaleX(0.4)' },
+          '100%': { transform: 'translateX(100%) scaleX(0.5)' },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        progress: 'progress 1s infinite linear',
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config;

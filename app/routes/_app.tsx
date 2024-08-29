@@ -35,7 +35,7 @@ export default function AppLayout() {
     <>
       <div className="flex flex-col justify-between w-full h-full min-h-screen">
         <Header />
-        <ScrollArea className="flex-auto w-full max-w-3xl px-4 py-4 sm:px-6 md:py-6">
+        <ScrollArea className="flex-auto w-full max-w-3xl px-4 py-4 sm:px-6 md:py-6 mx-auto">
           <main>
             <Outlet />
           </main>
