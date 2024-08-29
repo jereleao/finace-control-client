@@ -1,4 +1,4 @@
-import { useUserLoaderData } from '@/root';
+import { useUserLoaderData } from '@/routes/_app';
 import { getInitials } from '@/lib/utils';
 import { SignIn, SignOut } from '@/components/auth-components';
 
@@ -13,15 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function UserButton() {
-  const userData = useUserLoaderData();
-
-  if (userData === undefined) {
-    throw new Error(
-      'useUserLoaderData must be used within the root route or its children'
-    );
-  }
-
-  const { user } = userData;
+  const { user } = useUserLoaderData();
 
   if (user == null) return <SignIn />;
 
