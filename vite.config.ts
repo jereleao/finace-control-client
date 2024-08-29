@@ -9,6 +9,6 @@ installGlobals();
 export default defineConfig({
   plugins: [remix({ presets: [vercelPreset()] }), tsconfigPaths()],
   ssr: {
-    noExternal: ['tailwind-merge'],
+    noExternal: ['tailwind-merge', 'remix-utils'],
   },
 });
