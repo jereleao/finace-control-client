@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Form } from '@remix-run/react';
 
-export function SignIn({
+export function SignInWithGoogle({
   provider,
   ...props
 }: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {

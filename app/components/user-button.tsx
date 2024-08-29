@@ -1,6 +1,6 @@
 import { useUserLoaderData } from '@/routes/_app';
 import { getInitials } from '@/lib/utils';
-import { SignIn, SignOut } from '@/components/auth-components';
+import { SignInWithGoogle, SignOut } from '@/components/auth-components';
 
 import {
   DropdownMenu,
@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 export default function UserButton() {
   const { user } = useUserLoaderData();
 
-  if (user == null) return <SignIn />;
+  if (user == null) return <SignInWithGoogle />;
 
   const initials = getInitials(user.name);
 
