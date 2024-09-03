@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
 export async function loader({ request }: LoaderFunctionArgs) {
   const user = await authenticator.isAuthenticated(request);
 
-  return json({ user });
+  return json({ user, isAuthenticated: !!user });
 }
 
 export function useUserLoaderData() {

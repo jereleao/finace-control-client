@@ -14,6 +14,8 @@ if (!process.env.AUTH_GOOGLE_ID)
   throw new Error('Invalid/Missing environment variable: "AUTH_GOOGLE_ID"');
 if (!process.env.AUTH_GOOGLE_SECRET)
   throw new Error('Invalid/Missing environment variable: "AUTH_GOOGLE_SECRET"');
+if (!process.env.APP_BASE_ENDPOINT)
+  throw new Error('Invalid/Missing environment variable: "APP_BASE_ENDPOINT"');
 
 /**
  * @see https://github.com/pbteja1998/remix-auth-google
@@ -22,7 +24,7 @@ const googleStrategy = new GoogleStrategy(
   {
     clientID: process.env.AUTH_GOOGLE_ID,
     clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    callbackURL: 'http://localhost:5173/auth/google/callback',
+    callbackURL: `${process.env.APP_BASE_ENDPOINT}/auth/google/callback`,
   },
   async ({ profile }) => {
     const {

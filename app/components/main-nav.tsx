@@ -1,7 +1,9 @@
-'use client';
-
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { useUserLoaderData } from '@/routes/_app';
+import { NavLink } from '@remix-run/react';
+import { RemixNavLinkProps } from '@remix-run/react/dist/components';
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,18 +12,24 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { ReaderIcon } from '@radix-ui/react-icons';
-import { NavLink, RemixNavLinkProps } from '@remix-run/react/dist/components';
 
 export function MainNav() {
+  const { isAuthenticated } = useUserLoaderData();
+
   return (
     <div className="min-h-16 flex gap-4 items-center">
       <NavigationMenu>
         <NavigationMenuList className="flex justify-center">
-          <NavigationMenuItem>
-            <LinkItem to={'/categories'} className="h-12 w-12">
-              <ReaderIcon className="h-7 w-7" />
-            </LinkItem>
-          </NavigationMenuItem>
+          {isAuthenticated && (
+            <NavigationMenuItem>
+              <LinkItem
+                to={'/categories'}
+                className="h-[3.125rem] w-[3.125rem] p-1"
+              >
+                <ReaderIcon className="h-6 w-6" />
+              </LinkItem>
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
     </div>
