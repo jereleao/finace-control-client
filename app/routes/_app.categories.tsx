@@ -3,8 +3,9 @@ import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
   json,
+  redirect,
 } from '@remix-run/server-runtime';
-import { PlusIcon, TrashIcon } from '@radix-ui/react-icons';
+import { Pencil1Icon, PlusIcon, TrashIcon } from '@radix-ui/react-icons';
 import { namedAction } from 'remix-utils/named-action';
 import invariant from 'tiny-invariant';
 
@@ -24,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
       await deleteCategory(categoryId);
 
-      return new Response(null, { status: 204 });
+      return redirect('/categories');
     },
   });
 }
@@ -46,27 +47,39 @@ export default function Categories() {
     <div>
       <div>
         {categories.length ? (
-          <ul>
+          <ul className="space-y-1">
             {categories.map(category => (
-              <li key={category._id}>
-                <Form
-                  method="post"
-                  action="?/delete"
-                  className="flex items-center justify-between"
-                >
-                  <label>{category.name}</label>
-                  <Button
-                    variant="outline"
-                    aria-label="Remove from favorites"
-                    name="categoryId"
-                    value={category._id}
-                    size="icon"
-                    className="rounded-full h-8 w-8 p-0"
-                  >
-                    <TrashIcon className="h-4 w-4" />
-                    <span className="sr-only">Delete</span>
-                  </Button>
-                </Form>
+              <li
+                key={category._id}
+                className="flex items-center justify-between"
+              >
+                <label>{category.name}</label>
+                <div className="flex gap-3">
+                  <Form method="post" action="?/delete">
+                    <Button
+                      variant="outline"
+                      aria-label="Delete Category"
+                      name="categoryId"
+                      value={category._id}
+                      size="icon"
+                      className="rounded-full h-8 w-8 p-0"
+                    >
+                      <TrashIcon className="h-4 w-4" />
+                      <span className="sr-only">Delete</span>
+                    </Button>
+                  </Form>
+                  <Link to={`/category/${category._id}`}>
+                    <Button
+                      variant="outline"
+                      aria-label="Edit Category"
+                      size="icon"
+                      className="rounded-full h-8 w-8 p-0"
+                    >
+                      <Pencil1Icon className="h-4 w-4" />
+                      <span className="sr-only">Add new</span>
+                    </Button>
+                  </Link>
+                </div>
               </li>
             ))}
           </ul>
@@ -76,6 +89,12 @@ export default function Categories() {
           </p>
         )}
       </div>
+      <Link to={`/category/new`}>
+        <Button size="icon" className="rounded-full absolute bottom-4 right-4">
+          <PlusIcon className="h-7 w-7 p-1" />
+          <span className="sr-only">Add new</span>
+        </Button>
+      </Link>
     </div>
   );
 }
