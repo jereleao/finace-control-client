@@ -2,13 +2,13 @@
  * @see https://remix.run/resources/remix-auth
  */
 import { Authenticator } from 'remix-auth';
+import { IUser } from '@/models/users';
 import { sessionStorage } from '@/services/session.server';
-import { IUsers } from '@/models/users';
 import { findOrCreateUser } from '@/services/users.server';
 
 import { GoogleStrategy } from 'remix-auth-google';
 
-export let authenticator = new Authenticator<IUsers>(sessionStorage);
+export let authenticator = new Authenticator<IUser>(sessionStorage);
 
 if (!process.env.AUTH_GOOGLE_ID)
   throw new Error('Invalid/Missing environment variable: "AUTH_GOOGLE_ID"');

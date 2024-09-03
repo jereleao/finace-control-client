@@ -1,4 +1,4 @@
-import { IUsers, Users } from '@/models/users';
+import { IUser, Users } from '@/models/users';
 
 export async function getUsers() {
   const users = await Users.find();
@@ -10,7 +10,7 @@ export async function getUserByEmail(email: string) {
   return user;
 }
 
-type CreateProps = Pick<IUsers, 'email' | 'name' | 'image'>;
+type CreateProps = Pick<IUser, 'email' | 'name' | 'image'>;
 
 export async function createUser(props: CreateProps) {
   const newUser = await Users.create(props);
@@ -26,7 +26,7 @@ export async function findOrCreateUser(props: CreateProps) {
   return await createUser(props);
 }
 
-type UpdateProps = Omit<IUsers, 'createdAt' | 'updatedAt'>;
+type UpdateProps = Omit<IUser, 'createdAt' | 'updatedAt'>;
 
 export async function updateUser(user: UpdateProps) {
   const updatedUser = await Users.findOneAndUpdate(

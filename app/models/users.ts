@@ -1,7 +1,8 @@
+import { ObjectWithId } from '@/lib/types';
 import { mongoose } from '@/services/db.server';
 import { Model, Schema, model } from 'mongoose';
 
-export interface IUsers {
+export interface IUser extends ObjectWithId {
   name: string;
   email: string;
   image: string;
@@ -12,7 +13,7 @@ export interface IUsers {
   updatedAt: Date;
 }
 
-const UsersSchema = new Schema<IUsers>(
+const UsersSchema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -34,5 +35,4 @@ const UsersSchema = new Schema<IUsers>(
 );
 
 export const Users =
-  (mongoose.models.users as Model<IUsers>) ||
-  model<IUsers>('users', UsersSchema);
+  (mongoose.models.users as Model<IUser>) || model<IUser>('users', UsersSchema);
