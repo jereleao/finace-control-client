@@ -1,34 +1,11 @@
 import { Form, Link, useLoaderData } from '@remix-run/react';
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  json,
-  redirect,
-} from '@remix-run/server-runtime';
+import { LoaderFunctionArgs, json } from '@remix-run/server-runtime';
 import { Pencil1Icon, PlusIcon, TrashIcon } from '@radix-ui/react-icons';
-import { namedAction } from 'remix-utils/named-action';
-import invariant from 'tiny-invariant';
 
 import { authenticator } from '@/services/auth.server';
-import { deleteCategory, getCategories } from '@/services/categories.server';
+import { getCategories } from '@/services/categories.server';
 
 import { Button } from '@/components/ui/button';
-
-export async function action({ request }: ActionFunctionArgs) {
-  return namedAction(request, {
-    async delete() {
-      const formData = await request.formData();
-
-      const categoryId = formData.get('categoryId') as string;
-
-      invariant(categoryId, 'Missing categoryId');
-
-      await deleteCategory(categoryId);
-
-      return redirect('/categories');
-    },
-  });
-}
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const user = await authenticator.isAuthenticated(request, {
@@ -55,12 +32,13 @@ export default function Categories() {
               >
                 <label>{category.name}</label>
                 <div className="flex gap-3">
-                  <Form method="post" action="?/delete">
+                  <Form
+                    method="post"
+                    action={`/category/${category._id}/delete`}
+                  >
                     <Button
                       variant="outline"
                       aria-label="Delete Category"
-                      name="categoryId"
-                      value={category._id}
                       size="icon"
                       className="rounded-full h-8 w-8 p-0"
                     >
@@ -76,7 +54,7 @@ export default function Categories() {
                       className="rounded-full h-8 w-8 p-0"
                     >
                       <Pencil1Icon className="h-4 w-4" />
-                      <span className="sr-only">Add new</span>
+                      <span className="sr-only">Edit</span>
                     </Button>
                   </Link>
                 </div>
