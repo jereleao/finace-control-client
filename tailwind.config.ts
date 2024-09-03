@@ -75,7 +75,10 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        progress: 'progress 1s infinite linear',
+        progress: 'progress 1.2s infinite linear',
+      },
+      transformOrigin: {
+        'left-right': '0% 50%',
       },
     },
   },

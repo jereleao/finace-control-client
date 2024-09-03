@@ -24,7 +24,7 @@ export function useUserLoaderData() {
   const data = useRouteLoaderData<typeof loader>('routes/_app');
   if (data === undefined) {
     throw new Error(
-      'useLayoutLoaderData must be used within the routes/_app route or its children'
+      'useUserLoaderData must be used within the routes/_app route or its children'
     );
   }
   return data;
@@ -35,7 +35,7 @@ export default function AppLayout() {
     <>
       <div className="flex flex-col justify-between w-full h-full min-h-screen">
         <Header />
-        <ScrollArea className="flex-auto w-full max-w-3xl px-4 py-4 sm:px-6 md:py-6 mx-auto">
+        <ScrollArea className="flex-auto w-full max-w-2xl px-4 py-4 sm:px-6 md:py-6 mx-auto">
           <main>
             <Outlet />
           </main>
