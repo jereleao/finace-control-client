@@ -38,6 +38,6 @@ async function dbConnect() {
   return cached.conn;
 }
 
-await dbConnect();
+dbConnect();
 
 export { mongoose, dbConnect };
